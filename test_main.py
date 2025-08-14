@@ -3,19 +3,20 @@ from main import app
 
 client = TestClient(app)
 
-def test_get_items():
-    response = client.get("/items")
+# 1️⃣ GET / retorna 200
+def test_root():
+    response = client.get("/")
     assert response.status_code == 200
-    assert isinstance(response.json(), list)
 
-def test_create_item():
-    new_item = {"id": 10, "name": "Pan", "price": 5.0}
-    response = client.post("/items", json=new_item)
+# 2️⃣ POST /items/ con datos válidos
+def test_create_item_valid():
+    new_item = {"id": 1, "nombre": "Pan", "precio": 2.5}
+    response = client.post("/items/", json=new_item)
     assert response.status_code == 201
-    assert response.json()["name"] == "Pan"
+    assert response.json()["nombre"] == "Pan"
 
-def test_create_item_missing_data():
-    incomplete_item = {"name": "Leche"}  # Falta 'id' y 'price'
-    response = client.post("/items", json=incomplete_item)
-    assert response.status_code == 422  # Código de error de validación de FastAPI
-
+# 3️⃣ POST /items/ con datos inválidos (falla)
+def test_create_item_invalid():
+    invalid_item = {"nombre": "Leche"}  # Falta 'id' y 'precio'
+    response = client.post("/items/", json=invalid_item)
+    assert response.status_code == 422  # error de validación
