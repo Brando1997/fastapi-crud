@@ -163,3 +163,9 @@ def seed_data():
         ]
     )
     return {"mensaje": "Datos de ejemplo cargados", "total": len(items_db)}
+
+
+# Endpoint de prueba
+@app.get("/hello")
+def hello():
+    return {"message": "Hola mundo"}
