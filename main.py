@@ -165,7 +165,7 @@ def seed_data():
     return {"mensaje": "Datos de ejemplo cargados", "total": len(items_db)}
 
 
-# Endpoint de prueba
-@app.get("/hello")
-def hello():
-    return {"message": "Hola mundo"}
+# Endpoint de prueba exclusivo de feature/alvarez
+@app.get("/prueba")
+def prueba():
+    return {"message": "Este commit es solo en feature/alvarez"}
